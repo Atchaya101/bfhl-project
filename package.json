@@ -4,8 +4,8 @@
   "description": "BFHL Full Stack Challenge",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
-  },
+  "start": "node server.js"
+},
   "author": "Atchaya",
   "license": "ISC",
   "dependencies": {
