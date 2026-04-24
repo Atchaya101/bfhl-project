@@ -5,7 +5,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Validate edge
+// ✅ Root route (important for browser test)
+app.get("/", (req, res) => {
+  res.send("BFHL API is running 🚀");
+});
+
+// ✅ GET bfhl (so no "Not Found" in browser)
+app.get("/bfhl", (req, res) => {
+  res.send("Use POST request for this endpoint");
+});
+
+// ✅ Validate edge
 function isValidEdge(edge) {
   edge = edge.trim();
   const regex = /^[A-Z]->[A-Z]$/;
@@ -17,7 +27,7 @@ function isValidEdge(edge) {
   return true;
 }
 
-// Build tree
+// ✅ Build tree
 function buildTree(node, graph, visited) {
   if (visited.has(node)) return {};
   visited.add(node);
@@ -31,7 +41,7 @@ function buildTree(node, graph, visited) {
   return obj;
 }
 
-// Depth
+// ✅ Depth
 function getDepth(node, graph) {
   if (!graph[node] || graph[node].length === 0) return 1;
 
@@ -43,7 +53,7 @@ function getDepth(node, graph) {
   return max + 1;
 }
 
-// Cycle detection
+// ✅ Cycle detection
 function hasCycle(node, graph, visiting, visited) {
   if (visiting.has(node)) return true;
   if (visited.has(node)) return false;
@@ -61,6 +71,7 @@ function hasCycle(node, graph, visiting, visited) {
   return false;
 }
 
+// ✅ MAIN API
 app.post("/bfhl", (req, res) => {
   const input = req.body.data || [];
 
@@ -166,9 +177,9 @@ app.post("/bfhl", (req, res) => {
   }
 
   res.json({
-    user_id: "atchaya_24042004", 
-    email_id: "ap9093@srm.edu", 
-    college_roll_number: "RA2311026050014", 
+    user_id: "atchaya_24042004", // ✅ update if needed
+    email_id: "your_email@srm.edu", // ✅ update
+    college_roll_number: "your_roll", // ✅ update
     hierarchies,
     invalid_entries,
     duplicate_edges,
@@ -180,16 +191,9 @@ app.post("/bfhl", (req, res) => {
   });
 });
 
+// ✅ PORT FIX (VERY IMPORTANT)
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
-
-app.get("/", (req, res) => {
-  res.send("BFHL API is running 🚀");
-});
-
-app.get("/bfhl", (req, res) => {
-  res.send("Use POST request for this endpoint");
 });
