@@ -185,3 +185,11 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+app.get("/", (req, res) => {
+  res.send("BFHL API is running 🚀");
+});
+
+app.get("/bfhl", (req, res) => {
+  res.send("Use POST request for this endpoint");
+});
